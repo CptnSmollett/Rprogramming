@@ -16,19 +16,15 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
     # 1. validate input - todo
     
     # 2. read files
-    pollutantSum <- 0
-    pollutantCount <- 0
+    values <- numeric()
     
     for(i in id) {
         filename <- sprintf("%s/%03d.csv", directory, i)
         data <- read.csv(filename)
         
-        valueIndices <- !is.na(data[pollutant])
-        values <- data[pollutant][valueIndices]
-        pollutantSum <- pollutantSum + sum(values)
-        pollutantCount <- pollutantCount + length(values)
-    } 
+        values <- c(values, data[[pollutant]])
+    }
     
     # 3. calculate mean
-    pollutantSum/pollutantCount
+    mean(values, na.rm = TRUE)
 }
