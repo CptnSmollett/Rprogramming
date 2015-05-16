@@ -24,7 +24,7 @@ complete <- function(directory, id = 1:332) {
         data <- read.csv(filename)
         obsIndex <- obsIndex + 1L
         
-        completeCases <- !is.na(data[["sulfate"]]) & !is.na(data[["nitrate"]])
+        completeCases <- complete.cases(data[["sulfate"]], data[["nitrate"]])
         nobs[obsIndex] <- length(data[["sulfate"]][completeCases])
     }
     
